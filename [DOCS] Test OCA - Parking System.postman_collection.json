@@ -1,0 +1,992 @@
+{
+	"info": {
+		"_postman_id": "2529fec2-6c15-4617-b500-d7874f19e3f1",
+		"name": "[DOCS] Test OCA - Parking System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12136790"
+	},
+	"item": [
+		{
+			"name": "parking-service",
+			"item": [
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_gateway_host}}/parking/health",
+							"host": [
+								"{{api_gateway_host}}"
+							],
+							"path": [
+								"parking",
+								"health"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:1500/api/v1/parking/health",
+									"host": [
+										"localhost"
+									],
+									"port": "1500",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:00:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "26"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"data\": \"OK\"\n}"
+						}
+					]
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plat_nomor\": \"B 1 RI\",\n    \"warna\": \"Putih\",\n    \"tipe\": \"MPV\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_gateway_host}}/parking/register",
+							"host": [
+								"{{api_gateway_host}}"
+							],
+							"path": [
+								"parking",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"B 1 RI\",\n    \"warna\": \"Putih\",\n    \"tipe\": \"MPV\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:1500/api/v1/parking/register",
+									"host": [
+										"localhost"
+									],
+									"port": "1500",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:00:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "99"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"data\": {\n        \"plat_nomor\": \"B 1 RI\",\n        \"parking_lot\": \"A1\",\n        \"tanggal_masuk\": \"2024-06-11 06:00\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request  - Invalid Plat Nomor",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"B1 1 RI\",\n    \"warna\": \"Putih\",\n    \"tipe\": \"MPV\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_gateway_host}}/parking/register",
+									"host": [
+										"{{api_gateway_host}}"
+									],
+									"path": [
+										"parking",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:00:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"plat_nomor format is invalid\"\n    },\n    \"data\": null\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid Color",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"B 1 RI\",\n    \"warna\": \"Putihh\",\n    \"tipe\": \"MPV\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_gateway_host}}/parking/register",
+									"host": [
+										"{{api_gateway_host}}"
+									],
+									"path": [
+										"parking",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:01:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"invalid color: Putihh\"\n    },\n    \"data\": null\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid Car Type",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"B 1 RI\",\n    \"warna\": \"Putih\",\n    \"tipe\": \"MPVV\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_gateway_host}}/parking/register",
+									"host": [
+										"{{api_gateway_host}}"
+									],
+									"path": [
+										"parking",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:02:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"invalid car type: MPVV\"\n    },\n    \"data\": null\n}"
+						},
+						{
+							"name": "409 Conflict - Plat Nomor Already Registered",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"B 1 RI\",\n    \"warna\": \"Putih\",\n    \"tipe\": \"MPV\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_gateway_host}}/parking/register",
+									"host": [
+										"{{api_gateway_host}}"
+									],
+									"path": [
+										"parking",
+										"register"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:01:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 409,\n        \"message\": \"plat_nomor B 1 RI already registered\"\n    },\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "exit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plat_nomor\": \"B 1 RI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_gateway_host}}/parking/exit",
+							"host": [
+								"{{api_gateway_host}}"
+							],
+							"path": [
+								"parking",
+								"exit"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"B 1 RI\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_gateway_host}}/parking/exit",
+									"host": [
+										"{{api_gateway_host}}"
+									],
+									"path": [
+										"parking",
+										"exit"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:13:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "137"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"data\": {\n        \"plat_nomor\": \"B 1 RI\",\n        \"tanggal_masuk\": \"2024-06-11 05:05\",\n        \"tanggal_keluar\": \"2024-06-11 06:13\",\n        \"jumlah_bayar\": 24000\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid Plat Nomor",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"bfef\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:1500/api/v1/parking/exit",
+									"host": [
+										"localhost"
+									],
+									"port": "1500",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"exit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:05:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"plat_nomor format is invalid\"\n    },\n    \"data\": null\n}   "
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plat_nomor\": \"B 1 RI\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_gateway_host}}/parking/exit",
+									"host": [
+										"{{api_gateway_host}}"
+									],
+									"path": [
+										"parking",
+										"exit"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:14:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 404,\n        \"message\": \"plat_nomor B 1 RI not found\"\n    },\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "report-service",
+			"item": [
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_gateway_host}}/report/health",
+							"host": [
+								"{{api_gateway_host}}"
+							],
+							"path": [
+								"report",
+								"health"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:1500/api/v1/report/health",
+									"host": [
+										"localhost"
+									],
+									"port": "1500",
+									"path": [
+										"api",
+										"v1",
+										"report",
+										"health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:16:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "26"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"data\": \"OK\"\n}"
+						}
+					]
+				},
+				{
+					"name": "type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_gateway_host}}/report/type?q=SUV",
+							"host": [
+								"{{api_gateway_host}}"
+							],
+							"path": [
+								"report",
+								"type"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "SUV"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:1500/api/v1/report/type?q=SUV",
+									"host": [
+										"localhost"
+									],
+									"port": "1500",
+									"path": [
+										"api",
+										"v1",
+										"report",
+										"type"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "SUV"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:30:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"data\": {\n        \"jumlah_kendaraan\": 3\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid Car Type",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_gateway_host}}/report/type?q=SUVV",
+									"host": [
+										"{{api_gateway_host}}"
+									],
+									"path": [
+										"report",
+										"type"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "SUVV"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:31:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"invalid car type: SUVV\"\n    },\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "color",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_gateway_host}}/report/color?q=Hitam",
+							"host": [
+								"{{api_gateway_host}}"
+							],
+							"path": [
+								"report",
+								"color"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Hitam"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:1500/api/v1/report/color?q=Putih",
+									"host": [
+										"localhost"
+									],
+									"port": "1500",
+									"path": [
+										"api",
+										"v1",
+										"report",
+										"color"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "Putih"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:33:15 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "101"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"data\": {\n        \"plat_nomor\": [\n            \"B 1 RI\",\n            \"B 2 RI\",\n            \"B 3 RI\",\n            \"B 6 RI\",\n            \"B 7 RI\",\n            \"B 8 RI\",\n            \"B 9 RI\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid Color",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:1500/api/v1/report/color?q=Item",
+									"host": [
+										"localhost"
+									],
+									"port": "1500",
+									"path": [
+										"api",
+										"v1",
+										"report",
+										"color"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "Item"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2024 06:33:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "66"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"invalid color: Item\"\n    },\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "parking_service_host",
+			"value": "localhost:8081/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "report_service_host",
+			"value": "localhost:8082/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "api_gateway_host",
+			"value": "localhost:1500/api/v1",
+			"type": "string"
+		}
+	]
+}

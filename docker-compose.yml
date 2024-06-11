@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  reverse-proxy:
+    build:
+      context: .
+      dockerfile: reverse-proxy/Dockerfile
+    volumes:
+      - "/run/docker.sock:/var/run/docker.sock:ro"
+    restart: on-failure
+    networks:
+      - test-oca-network
+    depends_on:
+      - parking-service
+      - report-service
+    ports:
+      - "1500:80"
+      - "443:443"
+
+  parking-service:
+    hostname: parking-service-host
+    build:
+      context: .
+      dockerfile: ./parking-service/Dockerfile
+    networks:
+      - test-oca-network
+    restart: on-failure
+    environment:
+      APP_NAME: "parking-service"
+      APP_HTTP_PORT: "80"
+      DATA_FILE: "./data/parking-data.txt"
+      MAX_PARKING_LOT: 50
+      TIMEZONE: "Asia/Jakarta"
+      RATE_SUV: 25000
+      RATE_MPV: 20000
+    volumes:
+      - ./data:/data
+
+  report-service:
+    hostname: report-service-host
+    build:
+      context: .
+      dockerfile: ./report-service/Dockerfile
+    networks:
+      - test-oca-network
+    restart: on-failure
+    environment:
+      APP_NAME: "report-service"
+      APP_HTTP_PORT: "80"
+      DATA_FILE: "./data/parking-data.txt"
+      MAX_PARKING_LOT: 50
+      TIMEZONE: "Asia/Jakarta"
+      RATE_SUV: 25000
+      RATE_MPV: 20000
+    volumes:
+      - ./data:/data
+
+networks:
+  test-oca-network:

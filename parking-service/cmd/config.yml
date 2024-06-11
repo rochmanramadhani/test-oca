@@ -1,0 +1,9 @@
+APP_NAME: "parking-rest-service"
+APP_HTTP_PORT: "8081"
+
+DATA_FILE: "data/parking-data.txt"
+MAX_PARKING_LOT: 10
+TIMEZONE: "Asia/Jakarta"
+
+RATE_SUV: 25000
+RATE_MPV: 20000
