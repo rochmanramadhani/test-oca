@@ -4,6 +4,7 @@ go 1.22.3
 
 require (
 	github.com/gorilla/mux v1.8.0
+	github.com/opentracing/opentracing-go v1.2.0
 	github.com/rs/cors v1.8.2
 	github.com/stretchr/testify v1.7.1
 	lib v1.0.1
@@ -16,6 +17,7 @@ require (
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
+	github.com/pkg/errors v0.8.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
@@ -24,6 +26,9 @@ require (
 	github.com/spf13/viper v1.9.0 // indirect
 	github.com/stretchr/objx v0.1.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
+	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
+	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
+	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.3.6 // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect

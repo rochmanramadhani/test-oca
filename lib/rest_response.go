@@ -2,6 +2,7 @@ package lib
 
 import (
 	"encoding/json"
+	"github.com/opentracing/opentracing-go"
 	"net/http"
 )
 
@@ -15,7 +16,7 @@ type Response struct {
 	Data  interface{} `json:"data"`
 }
 
-func failResponseWriter(w http.ResponseWriter, err error, errStatusCode int) {
+func failResponseWriter(sp opentracing.Span, w http.ResponseWriter, err error, errStatusCode int) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var resp Response
@@ -25,9 +26,12 @@ func failResponseWriter(w http.ResponseWriter, err error, errStatusCode int) {
 
 	responseBytes, _ := json.Marshal(resp)
 	w.Write(responseBytes)
+
+	sp.SetTag("error", true)
+	LogResponse(sp, resp)
 }
 
-func successResponseWriter(w http.ResponseWriter, data interface{}, statusCode int) {
+func successResponseWriter(sp opentracing.Span, w http.ResponseWriter, data interface{}, statusCode int) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var resp Response
@@ -37,26 +41,28 @@ func successResponseWriter(w http.ResponseWriter, data interface{}, statusCode i
 
 	responseBytes, _ := json.Marshal(resp)
 	w.Write(responseBytes)
+
+	LogResponse(sp, resp)
 }
 
-func WriteResponse(w http.ResponseWriter, err error, data any) {
+func WriteResponse(sp opentracing.Span, w http.ResponseWriter, err error, data any) {
 	switch err.(type) {
 	case *ErrNotFound, ErrNotFound:
-		failResponseWriter(w, err, http.StatusNotFound)
+		failResponseWriter(sp, w, err, http.StatusNotFound)
 	case *ErrBadRequest, ErrBadRequest:
-		failResponseWriter(w, err, http.StatusBadRequest)
+		failResponseWriter(sp, w, err, http.StatusBadRequest)
 		return
 	case *ErrForbidden, ErrForbidden:
-		failResponseWriter(w, err, http.StatusForbidden)
+		failResponseWriter(sp, w, err, http.StatusForbidden)
 		return
 	case *ErrDuplicate, ErrDuplicate:
-		failResponseWriter(w, err, http.StatusConflict)
+		failResponseWriter(sp, w, err, http.StatusConflict)
 		return
 	case nil:
-		successResponseWriter(w, data, http.StatusOK)
+		successResponseWriter(sp, w, data, http.StatusOK)
 		return
 	default:
-		failResponseWriter(w, err, http.StatusInternalServerError)
+		failResponseWriter(sp, w, err, http.StatusInternalServerError)
 		return
 	}
 }

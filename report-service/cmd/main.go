@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/opentracing/opentracing-go"
 	"lib"
 	"log"
 	"os"
@@ -13,6 +14,13 @@ import (
 
 func main() {
 	cfg := lib.LoadConfigByFile("./cmd", "config", "yaml")
+
+	tracer, closer, err := lib.InitJaeger(cfg.App.Name)
+	if err != nil {
+		log.Fatalf("could not initialize jaeger tracer: %v", err)
+	}
+	defer closer.Close()
+	opentracing.SetGlobalTracer(tracer)
 
 	repository := repository.NewRepository(cfg.DataFile)
 	service := usecase.NewService(repository)
